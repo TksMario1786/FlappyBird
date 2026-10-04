@@ -13,13 +13,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.flappydino.ui.theme.FlappyDinoTheme
 import com.example.flappydino.vista.MenuScreen
+import com.example.flappydino.viewModel.GameViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.flappydino.model.GameState
+import com.example.flappydino.vista.GameScreen
+import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Color
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        enableEdgeToEdge()
         setContent {
-            Text("FUNCIONA")
+            val gameViewModel: GameViewModel = viewModel()
+            FlappyDinoTheme {
+                when (gameViewModel.gameState) {
+                    GameState.MENU -> {
+                        MenuScreen(
+                            onStartGame ={
+                                gameViewModel.startGame(
+                                )
+                            }
+
+                        )
+                    }
+                    GameState.GAME -> {
+                        GameScreen()
+                    }
+                }
+            }
         }
     }
 }
