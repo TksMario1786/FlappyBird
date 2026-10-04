@@ -10,14 +10,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.offset
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.clickable
 
 
 @Composable
-fun GameScreen (){
+fun GameScreen (birdY: Float, onJump: () -> Unit){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF87CEEB)),
+            .background(Color(0xFF87CEEB))
+            .clickable {onJump()},
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
@@ -27,9 +31,13 @@ fun GameScreen (){
             fontSize = 25.sp
 
         )
+        Text(
+            text = "Y: $birdY"
+        )
         Text (
-            "\uD83D\uDC26",
-            fontSize = 40.sp
+            text = "🦅",
+            modifier = Modifier.offset(y = birdY.dp),
+            fontSize = 50.sp
         )
     }
 }

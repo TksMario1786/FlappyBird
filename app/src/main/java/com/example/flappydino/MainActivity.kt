@@ -19,6 +19,7 @@ import com.example.flappydino.model.GameState
 import com.example.flappydino.vista.GameScreen
 import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +27,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val gameViewModel: GameViewModel = viewModel()
+            val uiState =
+                gameViewModel.uiState
+                    .collectAsStateWithLifecycle()
+
             FlappyDinoTheme {
-                when (gameViewModel.gameState) {
+                when (uiState.value.gameState) {
                     GameState.MENU -> {
                         MenuScreen(
                             onStartGame ={
@@ -38,7 +43,12 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     GameState.GAME -> {
-                        GameScreen()
+                        GameScreen(
+                            birdY = uiState.value.birdY,
+                            onJump = {
+                                gameViewModel.jump()
+                            }
+                        )
                     }
                 }
             }
