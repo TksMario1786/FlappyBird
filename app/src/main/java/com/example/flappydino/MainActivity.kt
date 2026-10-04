@@ -45,6 +45,8 @@ class MainActivity : ComponentActivity() {
                     GameState.GAME -> {
                         GameScreen(
                             birdY = uiState.value.birdY,
+                            wingsDown = uiState.value.wingsDown,
+                            pipes = uiState.value.pipes,
                             onJump = {
                                 gameViewModel.jump()
                             }
