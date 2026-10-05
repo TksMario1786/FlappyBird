@@ -145,14 +145,19 @@ class GameViewModel : ViewModel(){
         return false
 
     }
-    fun saveScoreAndRestart(playerName: String) {
+    fun onPlayerNameChange(newName: String) {
+        _uiState.value = _uiState.value.copy(playerName = newName)
+    }
+
+    fun saveScoreAndRestart() {
         val currentScore = _uiState.value.score
+        val inputName = _uiState.value.playerName
         var currentScores = _uiState.value.highScores
 
         val isHighScore = currentScores.size < 3 || currentScore > (currentScores.lastOrNull()?.second ?: 0)
 
         if (isHighScore && currentScore > 0) {
-            val finalName = if (playerName.isBlank()) "Anónimo" else playerName
+            val finalName = if (inputName.isBlank()) "Anónimo" else inputName
             currentScores = (currentScores + Pair(finalName, currentScore))
                 .sortedByDescending { it.second }
                 .take(3)
@@ -165,6 +170,7 @@ class GameViewModel : ViewModel(){
             pipes = createInitialPipes(),
             gameStarted = false,
             score = 0,
+            playerName = "",
             highScores = currentScores
         )
     }

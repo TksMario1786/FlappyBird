@@ -8,6 +8,7 @@ data class GameUiState(
     val wingsDown: Boolean = false,
     val gameStarted: Boolean =false,
     val pipes: List<Pipe> = emptyList(),
-    val highScores: List<Pair<String, Int>> = emptyList()
+    val highScores: List<Pair<String, Int>> = emptyList(),
+    val playerName: String = ""
 
 )

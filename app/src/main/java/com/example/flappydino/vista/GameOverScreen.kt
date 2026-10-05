@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,11 +18,11 @@ import com.example.flappydino.R
 @Composable
 fun GameOverScreen(
     score: Int,
+    playerName: String,
     highScores: List<Pair<String, Int>>,
-    onSaveAndRestart: (String) -> Unit
+    onPlayerNameChange: (String) -> Unit,
+    onSaveAndRestart: () -> Unit
 ) {
-    var playerName by remember { mutableStateOf("") }
-
     val isHighScore = highScores.size < 3 || score > (highScores.lastOrNull()?.second ?: 0)
 
     Column(
@@ -42,16 +42,16 @@ fun GameOverScreen(
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = playerName,
-                onValueChange = { playerName = it },
+                onValueChange = onPlayerNameChange,
                 label = { Text(stringResource(id = R.string.enter_name)) },
                 singleLine = true
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { onSaveAndRestart(playerName) }) {
+            Button(onClick = onSaveAndRestart) {
                 Text(stringResource(id = R.string.save_and_retry))
             }
         } else {
-            Button(onClick = { onSaveAndRestart("") }) {
+            Button(onClick = onSaveAndRestart) {
                 Text(stringResource(id = R.string.retry))
             }
         }

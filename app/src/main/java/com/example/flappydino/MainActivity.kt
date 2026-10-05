@@ -48,9 +48,13 @@ class MainActivity : ComponentActivity() {
                     GameState.GAME_OVER -> {
                         GameOverScreen(
                             score = uiState.value.score,
+                            playerName = uiState.value.playerName,
                             highScores = uiState.value.highScores,
-                            onSaveAndRestart = { playerName ->
-                                gameViewModel.saveScoreAndRestart(playerName)
+                            onPlayerNameChange = { newName ->
+                                gameViewModel.onPlayerNameChange(newName)
+                            },
+                            onSaveAndRestart = {
+                                gameViewModel.saveScoreAndRestart()
                             }
                         )
                     }
