@@ -7,6 +7,7 @@ data class GameUiState(
     val score: Int = 0,
     val wingsDown: Boolean = false,
     val gameStarted: Boolean =false,
-    val pipes: List<Pipe> = emptyList()
+    val pipes: List<Pipe> = emptyList(),
+    val highScores: List<Pair<String, Int>> = emptyList()
 
 )

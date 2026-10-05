@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.foundation.background
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.flappydino.R
 
 @Composable
 fun MenuScreen(onStartGame: () -> Unit) {
@@ -36,7 +38,7 @@ fun MenuScreen(onStartGame: () -> Unit) {
             onClick = onStartGame,
             colors = ButtonDefaults.buttonColors( containerColor = Color.Blue)
         ){
-            Text(text = "JUGAR")
+            Text(stringResource(id = R.string.jugar))
         }
 
     }
